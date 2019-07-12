@@ -48,7 +48,7 @@ test('should edit an expense', () => {
   expect(state[1].note).toEqual(note);
 });
 
-test('should not remove expenses if id not found', () => {
+test('should not edit expense if id not found', () => {
   const note = 'some note';
   const action = {
     type: 'EDIT_EXPENSE',
