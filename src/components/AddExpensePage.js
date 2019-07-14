@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { addExpense } from '../actions/expenses';
 
-const Create = (props) => (
+const AddExpensePage = props => (
   <div>
     <h1>Add Expense</h1>
-    <ExpenseForm 
+    <ExpenseForm
       onSubmit={(expense) => {
         props.dispatch(addExpense(expense));
         props.history.push('/');
@@ -15,4 +15,4 @@ const Create = (props) => (
   </div>
 );
 
-export default connect()(Create);
+export default connect()(AddExpensePage);

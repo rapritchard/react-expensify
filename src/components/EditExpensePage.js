@@ -4,7 +4,7 @@ import ExpenseForm from './ExpenseForm';
 import { editExpense, removeExpense } from '../actions/expenses';
 
 
-const Edit = props => (
+const EditExpensePage = props => (
   <div>
     <ExpenseForm
       expense={props.expense}
@@ -27,4 +27,4 @@ const mapStateToProps = (state, props) => ({
   expense: state.expenses.find(expense => expense.id === props.match.params.id),
 });
 
-export default connect(mapStateToProps)(Edit);
+export default connect(mapStateToProps)(EditExpensePage);
