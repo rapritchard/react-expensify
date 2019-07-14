@@ -2,6 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
+import 'numeral/locales';
+
+numeral.locale('en-gb');
 
 const ExpenseListItem = ({
   id, description, amount, createdAt,
@@ -11,7 +14,7 @@ const ExpenseListItem = ({
     <p>
       {numeral(amount / 100).format('$0,0.00')}
       - 
-      {moment(createdAt).format('Do MMMM, YYYY')}
+      {moment(createdAt).format('MMMM Do, YYYY')}
     </p>
   </div>
 );
