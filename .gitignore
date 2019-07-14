@@ -64,7 +64,7 @@ typings/
 .eslintrc.js
 
 # Webpack bundle file
-public/scripts/bundle.js
-public/scripts/bundle.js.map
-public/scripts/styles.css
-public/scripts/styles.css.map
+public/dist/bundle.js
+public/dist/bundle.js.map
+public/dist/styles.css
+public/dist/styles.css.map
