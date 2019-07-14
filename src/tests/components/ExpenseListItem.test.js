@@ -7,4 +7,3 @@ test('should render ExpenseListItem with fixture data', () => {
   const wrapper = shallow(<ExpenseListItem {...expenses[0]} />);
   expect(wrapper).toMatchSnapshot();
 });
-
