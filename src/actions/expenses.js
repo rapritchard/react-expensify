@@ -7,7 +7,7 @@ export const addExpense = expense => ({
   expense,
 });
 
-export const startAddExpense = (expenseData = {}) => (dispatch) => {
+export const startAddExpense = (expenseData = {}) => async (dispatch) => {
   const {
     description = '',
     note = '',
@@ -19,13 +19,15 @@ export const startAddExpense = (expenseData = {}) => (dispatch) => {
     description, note, amount, createdAt,
   };
 
-  return database.ref('expenses').push(expense)
-    .then((ref) => {
-      dispatch(addExpense({
-        id: ref.key,
-        ...expense,
-      }));
-    });
+  try {
+    const ref = await database.ref('expenses').push(expense);
+    dispatch(addExpense({
+      id: ref.key,
+      ...expense,
+    }));
+  } catch (error) {
+    throw new Error('Unable to add expense data.');
+  }
 };
 
 // REMOVE_EXPENSE
@@ -39,3 +41,24 @@ export const editExpense = (id, updates) => ({
   id,
   updates,
 });
+
+export const setExpenses = expenses => ({
+  type: 'SET_EXPENSES',
+  expenses,
+});
+
+export const startSetExpenses = () => async (dispatch) => {
+  try {
+    const snapshot = await database.ref('expenses').once('value');
+    const expenses = [];
+    snapshot.forEach((childSnapshot) => {
+      expenses.push({
+        id: childSnapshot.key,
+        ...childSnapshot.val(),
+      });
+    });
+    dispatch(setExpenses(expenses));
+  } catch (error) {
+    throw new Error('Unable to fetch expenses data.');
+  }
+};
