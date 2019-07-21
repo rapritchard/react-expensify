@@ -65,3 +65,6 @@ typings/
 
 # Webpack bundle file
 public/dist/
+
+.env.development
+.env.test
