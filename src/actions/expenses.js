@@ -7,7 +7,8 @@ export const addExpense = expense => ({
   expense,
 });
 
-export const startAddExpense = (expenseData = {}) => async (dispatch) => {
+export const startAddExpense = (expenseData = {}) => async (dispatch, getState) => {
+  const { uid } = getState().auth;
   const {
     description = '',
     note = '',
@@ -20,7 +21,7 @@ export const startAddExpense = (expenseData = {}) => async (dispatch) => {
   };
 
   try {
-    const ref = await database.ref('expenses').push(expense);
+    const ref = await database.ref(`users/${uid}/expenses`).push(expense);
     dispatch(addExpense({
       id: ref.key,
       ...expense,
@@ -36,9 +37,10 @@ export const removeExpense = ({ id } = {}) => ({
   id,
 });
 
-export const startRemoveExpense = ({ id } = {}) => async (dispatch) => {
+export const startRemoveExpense = ({ id } = {}) => async (dispatch, getState) => {
+  const { uid } = getState().auth;
   try {
-    await database.ref(`expenses/${id}`).remove();
+    await database.ref(`users/${uid}/expenses/${id}`).remove();
     dispatch(removeExpense({ id }));
   } catch (erro) {
     throw new Error('Unable to remove expense.');
@@ -51,8 +53,9 @@ export const editExpense = (id, updates) => ({
   updates,
 });
 
-export const startEditExpense = (id, updates) => async (dispatch) => {
-  await database.ref(`expenses/${id}`).update({ ...updates });
+export const startEditExpense = (id, updates) => async (dispatch, getState) => {
+  const { uid } = getState().auth;
+  await database.ref(`users/${uid}/expenses/${id}`).update({ ...updates });
   dispatch(editExpense(id, updates));
 };
 
@@ -61,9 +64,10 @@ export const setExpenses = expenses => ({
   expenses,
 });
 
-export const startSetExpenses = () => async (dispatch) => {
+export const startSetExpenses = () => async (dispatch, getState) => {
+  const { uid } = getState().auth;
   try {
-    const snapshot = await database.ref('expenses').once('value');
+    const snapshot = await database.ref(`users/${uid}/expenses`).once('value');
     const expenses = [];
     snapshot.forEach((childSnapshot) => {
       expenses.push({
