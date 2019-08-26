@@ -1,0 +1,28 @@
+.button {
+  padding-bottom: calc(.375em - 1px);
+  padding-left: calc(.625em - 1px);
+  padding-right: calc(.625em - 1px);
+  padding-top: calc(.375em - 1px);
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: inline-block;
+  font-size: $font-size-large;
+  position: relative;
+  vertical-align: top;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.is-primary {
+  background-color: $pink;
+  border-color: transparent;
+  color: #fff;
+}
+
+.is-danger {
+  @extend .is-primary;
+  background-color: $red;
+}
