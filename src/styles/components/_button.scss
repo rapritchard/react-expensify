@@ -14,15 +14,25 @@
   vertical-align: top;
   line-height: 1.5;
   text-decoration: none;
+  transition: background .3s ease;
+
 }
 
 .is-primary {
   background-color: $pink;
   border-color: transparent;
   color: #fff;
+
+  &:hover {
+    background: darken($pink, 10%);
+  }
 }
 
 .is-danger {
   @extend .is-primary;
   background-color: $red;
+
+  &:hover {
+    background: darken($red, 10%);
+  }
 }
